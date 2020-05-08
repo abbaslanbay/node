@@ -15,7 +15,19 @@ router.get('/top10',(req,res,next) => {
   })
 });
 router.get('/',(req,res) => {
- const promise = Movie.find({});
+ const promise = Movie.aggregate([
+   {
+     $lookup:{
+       from : 'directors',
+       localField:'director_id',
+       foreignField:'_id',
+       as:'director'
+     }
+   },
+   {
+      $unwind:'$director'
+   }
+ ]);
  promise.then((data) => {
    res.json(data);
  }).catch((err) => {
@@ -64,9 +76,10 @@ router.delete('/:movie_id',(req,res,next) => {
 });
 router.post('/', (req, res, next) =>{
   /*Tek Te fiELDLARİ AYIRIP databasea ekleniyor*/
-  const {title,imdb_score,category,country,year} = req.body;
+  const {title,imdb_score,category,country,year,director_id} = req.body;
   const movie = new Movie({
     title:title,
+    director_id:director_id,
     imdb_score:imdb_score,
     category:category,
     country:country,
