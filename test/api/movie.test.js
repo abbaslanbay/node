@@ -10,13 +10,13 @@ describe('/api/movies tests', () => {
 	before((done) => {
 		chai.request(server)
 			.post('/authenticate')
-			.send({username: 'abbaslanbay', password: '123456'})
+			.send({username: 'mseven', password: '12345'})
 			.end((err, res) => {
-                token = res.body.token;
-                console.log(token)
+				token = res.body.token;
 				done();
 			});
 	});
+
 	describe('/GET movies', () => {
 		it('it should GET all the movies', (done) => {
 			chai.request(server)
@@ -124,4 +124,3 @@ describe('/api/movies tests', () => {
 		});
 	});
 });
-
