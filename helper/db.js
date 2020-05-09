@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 module.exports = () => {
-    mongoose.connect('mongodb://coderfour:db12345@ds163822.mlab.com:63822/heroku_rgh19srr')
+    mongoose.connect('mongodb://coderfour:db12345@ds163822.mlab.com:63822/heroku_rgh19srr',{ useNewUrlParser: true ,useUnifiedTopology: true })
     mongoose.connection.on('open',() => {
         console.log('Bağlantı sağlandı')
       });
